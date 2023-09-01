@@ -29,7 +29,7 @@ public class CheckOutServiceImpl implements CheckoutService{
         this.customerRepository = customerRepository;
 
         // initialize Stripe API with secret key
-        Stripe.apiKey = secretKey;
+        //Stripe.apiKey = secretKey;
     }
     @Override
     @Transactional
@@ -64,17 +64,4 @@ public class CheckOutServiceImpl implements CheckoutService{
         return UUID.randomUUID().toString();
     }
 
-    @Override
-    public PaymentIntent createPaymentIntent(PaymentInfo paymentInfo) throws StripeException {
-
-        List<String> paymentMethodTypes = new ArrayList<>();
-        paymentMethodTypes.add("card");
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("amount", paymentInfo.getAmount());
-        params.put("currency", paymentInfo.getCurrency());
-        params.put("payment_method_types", paymentMethodTypes);
-
-        return PaymentIntent.create(params);
-    }
 }
